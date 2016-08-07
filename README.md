@@ -12,7 +12,7 @@
 
 ## Contact
 
-You can send an email at **pierrehenrysoria [AT] gmail {D0T} COM**
+You can send an email at **pierrehenrysoria+github {{AT}} gmail {{D0T}} COM**
 
 
 ## License
