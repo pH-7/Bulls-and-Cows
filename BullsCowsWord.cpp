@@ -4,7 +4,7 @@
 //
 //  Created by Pierre-Henry Soria on 06/08/2016.
 //  Copyright © 2016 Pierre-Henry Soria. All rights reserved.
-//  Email: pierrehenrysoria@gmail.com
+//  Email: pierrehenrysoria+github@gmail.com
 //  My Github: https://github.com/pH-7
 //
 
@@ -30,7 +30,7 @@ string BullsCowsWord::showIntro()
     string text;
     text = "Welcome to Bulls & Cows Game!\n";
     text += "Can you guess the word\n";
-    text += "Be smarter than this stupid game! :D\n";
+    text += "Be smarter than this stupid game! :D\n\n";
     return text;
 }
 
@@ -41,6 +41,7 @@ bool BullsCowsWord::isReplay() const
 
 void BullsCowsWord::askReplay()
 {
+    cout << "Game Over! Do you want to replay? (y/n)" << endl;
     getline(cin, input);
     replay = (input[0] == 'y' || input[0] == 'Y');
 }
@@ -76,19 +77,19 @@ void BullsCowsWord::reset()
     myCurrentTry = 1;
 }
 
-bool BullsCowsWord::isGameWon() const
+bool BullsCowsWord::isWon() const
 {
-    return false;
+    return won;
 }
 
 string BullsCowsWord::getGuess() const
 {
     int currentTry(0);
     currentTry = getCurrentTry();
-    
+
     // Get the answer fromt the player
     cout << "Enter Your Guess: " << endl;
-    
+
     string guess;
     getline(cin, guess);
     return guess;
@@ -99,7 +100,7 @@ bool BullsCowsWord::isTheWord(string word)
     if (word.length() <= 1) {
         return true;
     }
-    
+
     // Initialize the map
     map<char, bool> letterSeen;
     for (auto letter : word) // for all letters of the word, set aut type (inference)
@@ -114,6 +115,20 @@ bool BullsCowsWord::isTheWord(string word)
         }
     }
     return true;
+}
+
+BullCowCount BullsCowsWord::submitAnswer(string answer)
+{
+    myCurrentTry++;
+
+    reset();
+
+    // Initialize the struct from the class
+    BullCowCount BullCowCount;
+
+    BullCowCount.bulls++; // Increase the bulls!
+
+    return BullCowCount;
 }
 
 WordStatus BullsCowsWord::checkAnswerValidity(string answer)

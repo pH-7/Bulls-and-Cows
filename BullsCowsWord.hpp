@@ -4,7 +4,7 @@
 //
 //  Created by Pierre-Henry Soria on 06/08/2016.
 //  Copyright © 2016 Pierre-Henry Soria. All rights reserved.
-//  Email: pierrehenrysoria@gmail.com
+//  Email: pierrehenrysoria+github@gmail.com
 //  My Github: https://github.com/pH-7
 //
 
@@ -39,7 +39,7 @@ class BullsCowsWord
 {
     static const int MAX_TRIES;
     static const std::string HIDDEN_WORD;
-    
+
     public:
     BullsCowsWord();
     BullsCowsWord(std::string);
@@ -50,7 +50,7 @@ class BullsCowsWord
     void play();
     void reset();
     bool isTheWord(std::string word);
-    
+
     // Getters are const! (as they just return the property value and cannot modify them)
     int getMaxTries() const;
     int getCurrentTry() const;
@@ -58,18 +58,19 @@ class BullsCowsWord
     std::string getGuess() const;
     // Won't change anything as well, so "const" functions too
     bool isLowerCase(std::string) const;
-    bool isGameWon() const;
-    
-    WordStatus checkAnswerValidity(std::string);
+    bool isWon() const;
+
     BullCowCount submitAnswer(std::string);
-    
+    WordStatus checkAnswerValidity(std::string);
+
     private:
     bool replay;
     int myCurrentTry;
     int myMaxTries;
+    bool won;
     std::string myHiddenWord;
     std::string input;
-    
+
 };
 
 #endif /* BullsCowsWord_hpp */

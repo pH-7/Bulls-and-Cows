@@ -4,7 +4,7 @@
 //
 //  Created by Pierre-Henry Soria on 06/08/2016.
 //  Copyright © 2016 Pierre-Henry Soria. All rights reserved.
-//  Email: pierrehenrysoria@gmail.com
+//  Email: pierrehenrysoria+github@gmail.com
 //  My Github: https://github.com/pH-7
 //
 
@@ -16,15 +16,22 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     BullsCowsWord* BCW(0);
+    BCW = new BullsCowsWord;
+
+    // Show game intro
+    cout << BCW->showIntro();
+
     do {
-        BCW = new BullsCowsWord;
-        cout << BCW->showIntro();
+        // Run the game
         BCW->getGuess();
 
-        delete BCW; // Deallocates the memory
-        BCW = 0; // Set to 0 it the pointer doesn't point to anything
+        // Game is over. Ask to replay
+        BCW->askReplay();
     }
     while (BCW->isReplay());
-    
+
+    delete BCW; // Deallocates the memory
+    BCW = 0; // Set to 0 it the pointer doesn't point to anything
+
     return 0;
 }
