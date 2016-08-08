@@ -69,7 +69,7 @@ int BullsCowsWord::getCurrentTry() const
 
 void BullsCowsWord::play()
 {
-    for(int i = 1; i <= MAX_TRIES; i++)
+    for (int i = 1; i <= MAX_TRIES; i++)
     {
         cout << "Your guess was" << getGuess() << endl;
     }
