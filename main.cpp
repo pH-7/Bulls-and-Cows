@@ -23,7 +23,7 @@ int main(int argc, const char * argv[]) {
 
     do {
         // Run the game
-        BCW->getGuess();
+        BCW->play();
 
         // Game is over. Ask to replay
         BCW->askReplay();

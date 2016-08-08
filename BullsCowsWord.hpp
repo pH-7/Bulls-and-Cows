@@ -24,26 +24,22 @@ struct BullCowCount
 // From C++ 11, we can use "class" keyword to have each enum value scoped
 enum class WordStatus
 {
+    invalid,
     ok,
     wrong,
     notLowerCase,
     wrongLength
 };
 
-enum class ResetStatus
-{
-    ok
-};
-
 class BullsCowsWord
 {
-    static const int MAX_TRIES;
     static const std::string HIDDEN_WORD;
 
     public:
     BullsCowsWord();
     BullsCowsWord(std::string);
     std::string showIntro();
+    std::string showGameOver();
     void askReplay() const;
     bool isReplay() const;
     void askReplay();
@@ -55,21 +51,20 @@ class BullsCowsWord
     int getMaxTries() const;
     int getCurrentTry() const;
     int getHiddenWordLength() const;
-    std::string getGuess() const;
+
     // Won't change anything as well, so "const" functions too
     bool isLowerCase(std::string) const;
     bool isWon() const;
 
+    std::string checkValidAnser();
     BullCowCount submitAnswer(std::string);
     WordStatus checkAnswerValidity(std::string);
 
     private:
     bool replay;
     int myCurrentTry;
-    int myMaxTries;
     bool won;
     std::string myHiddenWord;
-    std::string input;
 
 };
 
