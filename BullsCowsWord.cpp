@@ -31,6 +31,12 @@ string BullsCowsWord::showIntro()
     text = "Welcome to Bulls & Cows Game!\n";
     text += "Can you guess the word\n";
     text += "Be smarter than this stupid game! :D\n\n";
+    text += "               }   {         ___ \n";
+    text += "               (o o)        (o o) \n";
+    text += "        /-------\\ /          \\ /-------\\ \n";
+    text += "       / | BULL |O            O|  COW  | \\ \n";
+    text += "      *  |-,--- |              |-------|  * \n";
+    text += "         ^      ^              ^       ^ \n";
     return text;
 }
 
@@ -126,7 +132,28 @@ BullCowCount BullsCowsWord::submitAnswer(string answer)
     // Initialize the struct from the class
     BullCowCount BullCowCount;
 
-    BullCowCount.bulls++; // Increase the bulls!
+    int wordLength = getHiddenWordLength();
+    for (int countAll = 1; countAll <= wordLength; countAll++)
+    {
+        for (int countGuess = 1; countGuess <= wordLength; countGuess++)
+        {
+                // If match
+            if (answer[countGuess] == myHiddenWord[countAll])
+            {
+                if (countAll == countGuess) {
+                    BullCowCount.bulls++; // Increase the bulls!
+                } else {
+                    BullCowCount.cows++; // Otherwise it's cows! So increase them
+                }
+            }
+        }
+    }
+
+    if (BullCowCount.bulls == wordLength) {
+        won = true;
+    } else {
+        won = false;
+    }
 
     return BullCowCount;
 }
