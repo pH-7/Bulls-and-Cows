@@ -83,13 +83,17 @@ void BullsCowsWord::play()
 
     // Loop asking the answer while the gane is not finished
     while (!isWon() && getCurrentTry() <= getMaxTries()) {
+
+        // Valid the answer
         string answer = checkValidAnser();
+
         // Submit the valid guess
         BullCowCount BullCowCount = submitAnswer(answer);
 
         cout << endl;
         cout << "Bulls = " << BullCowCount.bulls << endl;
         cout << "Cows = " << BullCowCount.cows << endl;
+        cout << endl;
     }
     cout << showGameOver() << endl;
 }
@@ -106,6 +110,9 @@ bool BullsCowsWord::isWon() const
     return won;
 }
 
+/*
+ * Check the answer entered
+ */
 string BullsCowsWord::checkValidAnser()
 {
     // Default values
@@ -186,11 +193,7 @@ BullCowCount BullsCowsWord::submitAnswer(string answer)
         }
     }
 
-    if (BullCowCount.bulls == wordLength) {
-        won = true;
-    } else {
-        won = false;
-    }
+    won = (BullCowCount.bulls == wordLength);
 
     return BullCowCount;
 }
