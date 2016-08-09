@@ -15,6 +15,7 @@
 #include <string>
 #include <map>
 
+// Struct for the score of the game
 struct BullCowCount
 {
     int bulls = 0;
@@ -33,7 +34,7 @@ enum class WordStatus
 
 class BullsCowsWord
 {
-    static const std::string HIDDEN_WORD;
+    static const int MAX_TRIES;
 
     public:
     BullsCowsWord();
@@ -48,7 +49,7 @@ class BullsCowsWord
     bool isTheWord(std::string word);
 
     // Getters are const! (as they just return the property value and cannot modify them)
-    int getMaxTries() const;
+    std::string getHiddenWord() const;
     int getCurrentTry() const;
     int getHiddenWordLength() const;
 

@@ -12,9 +12,11 @@
 
 using namespace std;
 
-const string BullsCowsWord::HIDDEN_WORD = "mark"; // Default word to guess
+// It is proven that any number could be solved within 7 turns
+// Source: https://en.wikipedia.org/wiki/Bulls_and_Cows
+const int BullsCowsWord::MAX_TRIES = 7;
 
-BullsCowsWord::BullsCowsWord() : replay(false), myCurrentTry(1), won(false), myHiddenWord(HIDDEN_WORD)
+BullsCowsWord::BullsCowsWord() : replay(false), myCurrentTry(1), won(false)
 {
 }
 
@@ -40,11 +42,27 @@ string BullsCowsWord::showGameOver()
     string text;
     // Show msg if won/lost
     if (isWon()) {
-         text = "Well done! You won!";
+         text = "Well done! You won ;)";
     } else {
-        text = "Could be better... Just play again!";
+        text = "Game Over! Could be better... :(\n";
+        text += "The word to guess was \"" + myHiddenWord + "\"";
+        text += "Okay... just play again!";
     }
     return text;
+}
+
+
+string BullsCowsWord::getHiddenWord() const
+{
+    // Initialize random number
+    srand(time(NULL));
+
+    // Letters from http://wordfinder.yourdictionary.com/letter-words/4
+    string words[] = {"jazz", "buzz", "fizz", "quiz", "mazy", "jaup", "mozo", "jabs", "quey", "proxy", "quag"};
+
+    int totalWords = sizeof(words)/sizeof(words[0]);
+    int arrayIndex = rand() % totalWords;
+    return words[arrayIndex];
 }
 
 bool BullsCowsWord::isReplay() const
@@ -54,17 +72,11 @@ bool BullsCowsWord::isReplay() const
 
 void BullsCowsWord::askReplay()
 {
-    cout << "Game Over! Do you want to replay? (y/n)" << endl;
+    cout << "Do you want to replay? (y/n)" << endl;
 
     string input;
     getline(cin, input);
     replay = (input[0] == 'y' || input[0] == 'Y');
-}
-
-int BullsCowsWord::getMaxTries() const
-{
-    map<int, int> wordLengthToMaxTries{ {3,4}, {4,7}, {5,10}, {6,16}, {7,20} };
-    return wordLengthToMaxTries[getHiddenWordLength()];
 }
 
 int BullsCowsWord::getHiddenWordLength() const
@@ -79,10 +91,11 @@ int BullsCowsWord::getCurrentTry() const
 
 void BullsCowsWord::play()
 {
+    // Initialize the attributes
     reset();
 
     // Loop asking the answer while the gane is not finished
-    while (!isWon() && getCurrentTry() <= getMaxTries()) {
+    while (!isWon() && getCurrentTry() <= MAX_TRIES) {
 
         // Valid the answer
         string answer = checkValidAnser();
@@ -100,7 +113,7 @@ void BullsCowsWord::play()
 
 void BullsCowsWord::reset()
 {
-    myHiddenWord = HIDDEN_WORD;
+    myHiddenWord = getHiddenWord();
     myCurrentTry = 1;
     won = false;
 }
@@ -120,7 +133,7 @@ string BullsCowsWord::checkValidAnser()
     WordStatus status = WordStatus::invalid;
 
     do {
-        cout << "Try " << getCurrentTry() << " of " << getMaxTries();
+        cout << "Try " << getCurrentTry() << " of " << MAX_TRIES;
         std::cout << ". Type Your Guess: ";
         std::getline(std::cin, answer); // Get the answer fromt the player
 
@@ -151,7 +164,7 @@ bool BullsCowsWord::isTheWord(string word)
         return true;
     }
 
-    // Initialize the map
+    // Initialize the map containing the data of the game
     map<char, bool> letterSeen;
     for (auto letter : word) // for all letters of the word, set "auto" type (inference)
     {
