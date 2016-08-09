@@ -51,7 +51,9 @@ string BullsCowsWord::showGameOver()
     return text;
 }
 
-
+/*
+ * Get the guess word from a random list
+ */
 string BullsCowsWord::getHiddenWord() const
 {
     // Initialize random number
